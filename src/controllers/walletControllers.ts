@@ -17,7 +17,7 @@ async function getInfo (req: Request) {
       address: public_key,
       transaction_amount: "0",
       liquidation_number: "0",
-      eth_balance: await web3.eth.getBalance(public_key)
+      eth_balance: BigNumber(await web3.eth.getBalance(public_key)).dividedBy(1000000000000000000).toFixed()
     }
   } else {
     return {
@@ -28,7 +28,7 @@ async function getInfo (req: Request) {
       last_updated_at_block_number: res.last_updated_at_block_number,
       total_balance: res.total_balance,
       liquidation_number: res.liquidation_number,
-      eth_balance:  BigNumber(await web3.eth.getBalance(public_key)).dividedBy(1000000000000000000).toFixed()
+      eth_balance: BigNumber(await web3.eth.getBalance(public_key)).dividedBy(1000000000000000000).toFixed()
     }
   }
 }

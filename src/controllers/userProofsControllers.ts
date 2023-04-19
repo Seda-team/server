@@ -9,17 +9,21 @@ async function addProof (req: Request) {
   var data: any = req.body
   var public_key: string = data.public_key
   var proof: string = data.proof
-  var type: number = data.type
-  var condition: string = data.condition
+  var balance: string = data.balance
+  var amount: string = data.amount
+  var liquidation: string = data.liquidation
   var status: number = data.status
+  var nonce: string = data.nonce
   var timestamp: string = data.timestamp
 
   var newUserProof = new UserProof({
     public_key: public_key,
     proof: proof,
-    type: type,
-    condition: condition,
+    balance: balance,
+    amount: amount,
+    liquidation: liquidation,
     status: status,
+    nonce: nonce,
     timestamp: timestamp
   })
 
@@ -28,4 +32,11 @@ async function addProof (req: Request) {
   return await UserProof.findOne({public_key: public_key, proof: proof})
 }
 
-export {addProof}
+async function getAllProof (req: Request) {
+  var data: any = req.body
+  var public_key: string = data.public_key.toLowerCase()
+
+  return await UserProof.find({public_key: public_key})
+}
+
+export {addProof, getAllProof}
