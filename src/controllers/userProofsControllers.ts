@@ -39,4 +39,20 @@ async function getAllProof (req: Request) {
   return await UserProof.find({public_key: public_key})
 }
 
-export {addProof, getAllProof}
+async function getProof (req: Request) {
+  var data: any = req.body
+  var public_key: string = data.public_key.toLowerCase()
+  var proof: string = data.proof
+
+  return await UserProof.findOne({public_key: public_key, proof: proof})
+}
+
+async function updateStatus (req: Request) {
+  var data: any = req.body
+  var public_key: string = data.public_key.toLowerCase()
+  var proof: string = data.proof
+
+  await UserProof.updateOne({public_key: public_key, proof: proof, status: 0}, {status: 1})
+  return await UserProof.findOne({public_key: public_key, proof: proof})
+}
+export {addProof, getAllProof, getProof, updateStatus}
