@@ -33,7 +33,7 @@ async function addProof (req: Request) {
 }
 
 async function getAllProof (req: Request) {
-  var data: any = req.body
+  var data: any = req.body 
   var public_key: string = data.public_key.toLowerCase()
 
   return await UserProof.find({public_key: public_key})
